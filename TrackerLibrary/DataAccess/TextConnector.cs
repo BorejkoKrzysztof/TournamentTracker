@@ -12,6 +12,11 @@ namespace TrackerLibrary.DataAccess
     {
         private const string prizesFile = "PrizesModel.csv";
 
+        public PersonModel CreatePerson(PersonModel model)
+        {
+            throw new NotImplementedException();
+        }
+
         public PrizeModel CreatePrize(PrizeModel model)
         {
             List<PrizeModel> prizes = prizesFile.FullFilePath().LoadFile().ConvertToPrizeModels();
