@@ -67,6 +67,18 @@ namespace TrackerLibrary.DataAccess.TextHelper
             return output;
         }
 
+        public static List<TeamModel> ConvertToTeamModel(this List<string> lines)
+        {
+            List<TeamModel> output = new List<TeamModel>();
+
+            foreach (string line in lines)
+            {
+                string[] cols = line.Split(',');
+
+
+            }
+        }
+
         public static void SaveToPrizeFile(this List<PrizeModel> prizes, string fileName)
         {
             List<string> lines = new List<string>();

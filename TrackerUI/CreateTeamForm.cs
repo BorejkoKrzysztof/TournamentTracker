@@ -96,6 +96,10 @@ namespace TrackerUI
 
                 GlobalConfig.Connection.CreatePerson(person);
 
+                selectedTeamMembers.Add(person);
+
+                WireUpLists();
+
                 firstNameValue.Text = string.Empty;
                 lastNameValue.Text = string.Empty;
                 emailValue.Text = string.Empty;
@@ -119,6 +123,16 @@ namespace TrackerUI
 
                 WireUpLists();
             }
+        }
+
+        private void createTeamButton_Click(object sender, EventArgs e)
+        {
+            TeamModel team = new TeamModel();
+
+            team.TeamName = teamNameValue.Text;
+            team.TeamMembers = selectedTeamMembers;
+
+            team = GlobalConfig.Connection.CreateTeam(team);
         }
     }
 }
