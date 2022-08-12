@@ -13,11 +13,11 @@ namespace TrackerUI
             ApplicationConfiguration.Initialize();
 
             // Initialize the database connections.
-            TrackerLibrary.GlobalConfig.InitializesConnections(DatabaseType.TextFile);
+            TrackerLibrary.GlobalConfig.InitializesConnections(DatabaseType.Sql);
 
             //Application.Run(new TournamentDashboardForm());
 
-            Application.Run(new CreatePrizeForm());
+            Application.Run(new CreateTeamForm());
         }
     }
 }
