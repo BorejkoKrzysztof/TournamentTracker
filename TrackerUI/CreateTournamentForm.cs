@@ -96,7 +96,8 @@ namespace TrackerUI
             if (p != null)
             {
                 selectedPrizes.Remove(p);
-                //avai
+
+                WireUpLists();
             }
         }
     }
