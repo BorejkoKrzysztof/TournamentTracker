@@ -88,6 +88,32 @@ namespace TrackerLibrary.DataAccess
             }
         }
 
+        public TournamentModel CreateTournament(TournamentModel model)
+        {
+            using (IDbConnection connection = new SqlConnection(GlobalConfig.CnnString("Tournaments")))
+            {
+                var p = new DynamicParameters();
+                p.Add("@TournamentName", model.TournamentName);
+                p.Add("@EntryFee", model.EntryFee);
+                p.Add("@Id", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                connection.Execute("dbo.spTournaments_Insert", p, commandType: CommandType.StoredProcedure);
+
+                model.Id = p.Get<int>("@Id");
+
+                foreach (PrizeModel pz in model.Prizes)
+                {
+                    p = new DynamicParameters();
+                    p.Add("@TeamId", model.Id);
+                    p.Add("@PersonId", tm.Id);
+
+                    connection.Execute("dbo.spTeamMembers_Insert", p, commandType: CommandType.StoredProcedure);
+                }
+
+                return model;
+            }
+        }
+
         public List<PersonModel> GetPerson_All()
         {
             List<PersonModel> output;
