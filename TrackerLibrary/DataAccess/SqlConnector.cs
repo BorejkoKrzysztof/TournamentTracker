@@ -98,6 +98,8 @@ namespace TrackerLibrary.DataAccess
 
                 SaveTournamentEntries(connection, model);
 
+                SaveTournamentRounds(connection, model);
+
                 //return model;
             }
         }
@@ -137,6 +139,24 @@ namespace TrackerLibrary.DataAccess
                 p.Add("@Id", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
 
                 connection.Execute("dbo.spTournamentPrizes_Insert", p, commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        private void SaveTournamentRounds(IDbConnection connection, TournamentModel model)
+        {
+            foreach (List<MatchupModel> round in model.Rounds)
+            {
+                foreach (MatchupModel item in round)
+                {
+                    // do zrobienia od nowa wiadomka
+
+                    var p = new DynamicParameters();
+                    p.Add("@TournamentId", model.Id);
+                    p.Add("@PrizeId", item.Id);
+                    p.Add("@Id", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                    connection.Execute("dbo.spTournamentPrizes_Insert", p, commandType: CommandType.StoredProcedure);
+                }
             }
         }
 

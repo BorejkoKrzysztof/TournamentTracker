@@ -35,10 +35,18 @@ namespace TrackerLibrary
 
                     if (currMatchup.Entries.Count > 1)
                     {
+                        currMatchup.MatchupRound = round;
                         currentRound.Add(currMatchup);
                         currMatchup = new MatchupModel();
                     }
                 }
+
+                model.Rounds.Add(currentRound);
+                previousRound = currentRound;
+
+                currentRound = new List<MatchupModel>();
+
+                round++;
             }
         }
 
